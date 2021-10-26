@@ -65,6 +65,13 @@ const app = {
         }
         ,
         {
+          name: "Proud Of You",
+          singer: "TiuBui, ThangNguyen",
+          path: "./assets/music/Proud Of You.mp3",
+          image: "./assets/img/chbi.jpg"
+        }
+        ,
+        {
           name: "I NEED YOUR LOVE",
           singer: "busquest",
           path: "./assets/music/I NEED YOUR LOVE.mp3",
@@ -78,14 +85,6 @@ const app = {
           path: "./assets/music/Love Paradise - Kelly Chen [Lyrics].mp3",
           image:
             "./assets/img/loveParadise.jpg"
-        }
-        ,
-        {
-          name: "Proud Of You",
-          singer: "Tiu Bui, Thang Nguyen",
-          path: "./assets/music/Proud Of You.mp3",
-          image:
-            "./assets/img/proudOfYou1.jpg"
         }
         ,
         {
