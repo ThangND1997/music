@@ -82,7 +82,7 @@ const app = {
         ,
         {
           name: "Proud Of You",
-          singer: "Tiu Bui ♥ Thang Nguyen",
+          singer: "Tiu Bui, Thang Nguyen",
           path: "./assets/music/Proud Of You.mp3",
           image:
             "./assets/img/proudOfYou1.jpg"
