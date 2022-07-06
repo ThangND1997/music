@@ -229,7 +229,7 @@ const app = {
               return res.json();
             })
             .then((data) => {
-              const result = data.data.data.songs;
+              const result = data.results;
               if(result) {
                 listSongSearch = result;
                 app.renderSearch(result);
@@ -440,7 +440,7 @@ const app = {
         audio.src = this.currentSong.path
       },
       loadCurrentSongPro: function() {
-        fetch(`https://music-services-1997.herokuapp.com/music/get?id=${this.currentCode}`)
+        fetch(`https://music-services-1997.herokuapp.com/music/get-song?id=${this.currentCode}`)
           .then(res => {
             return res.json()
           })
