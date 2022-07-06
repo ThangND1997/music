@@ -452,7 +452,7 @@ const app = {
               })
               heading.textContent = song[0].title;
               cdThumb.style.backgroundImage = `url('${song[0].thumbnailM}')`
-              audio.src = result;
+              const audio = new Audio(result)
               audio.play()
               document.documentElement.scrollTop = 0
             }
