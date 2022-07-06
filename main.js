@@ -16,13 +16,18 @@ const nextBtn = $('.btn-next')
 const btnRandom = $('.btn-random')
 const btnRepeat = $('.btn-repeat')
 const playlist = $('.playlist')
+const btnSearch = $('.btn-search i')
+const btnSearchInput = $('.btn-search input')
 
 const app = {
     currentIndex: 0,
+    currentCode: 0,
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
-    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {}, 
+    nameSong: '',
+    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+    listSongSearch: undefined, 
     songs: [
         {
           name: "See You Again",
@@ -209,28 +214,71 @@ const app = {
         }
         
       ],
+    handleSearch: () => {
+      btnSearchInput.onchange = (e) => {
+        nameSong = e.target.value;
+      }
+      btnSearch.onclick = () => {
+        if(btnSearchInput.style.width == 0) {
+          btnSearchInput.style.border = '1px solid #333';
+          btnSearchInput.style.width = '40%';
+        } else {
+          btnSearchInput.value = '';
+          fetch(`https://music-services-1997.herokuapp.com/music/search?name=${this.nameSong}`)
+            .then((res) => {
+              return res.json();
+            })
+            .then((data) => {
+              const result = data.data.data.songs;
+              if(result) {
+                listSongSearch = result;
+                app.renderSearch(result);
+              }
+            })
+        }
+      }
+
+    },  
     setConfig: function (key, value){
       this.config[key] = value;
       localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
     },
-      render: function() {
-          var htmls = this.songs.map(function(song, index) {
-              return `
-              <div class="song ${ index === app.currentIndex ? 'active' : '' }" data-index="${index}">
-                <div class="thumb" style="background-image: url('${song.image}')">
-                </div>
-                <div class="body">
-                <h3 class="title">${song.name}</h3>
-                <p class="author">${song.singer}</p>
-                </div>
-                <div class="option">
-                <i class="fas fa-ellipsis-h"></i>
-                </div>
-          </div>
-              `
-          })
+    render: function() {
+        var htmls = this.songs.map(function(song, index) {
+            return `
+            <div class="song song-list ${ index === app.currentIndex ? 'active' : '' }" data-index="${index}">
+              <div class="thumb" style="background-image: url('${song.image}')">
+              </div>
+              <div class="body">
+              <h3 class="title">${song.name}</h3>
+              <p class="author">${song.singer}</p>
+              </div>
+              <div class="option">
+              <i class="fas fa-ellipsis-h"></i>
+              </div>
+        </div>
+            `
+        })
        playlist.innerHTML = htmls.join('');   
       },
+    renderSearch: (datas) => {
+      var htmls = datas.map(function(data, index) {
+        return `
+        <div class="song-pro song-list ${ data.encodeId === app.currentCode ? 'active' : '' }" data-index="${data.encodeId}">
+          <div class="thumb" style="background-image: url('${data.thumbnail}')">
+          </div>
+          <div class="body">
+          <h3 class="title">${data.title}</h3>
+          <p class="author">${data.artistsNames}</p>
+          </div>
+          <div class="option">
+          <i class="fas fa-ellipsis-h"></i>
+          </div>
+    </div>
+        `
+      })
+   playlist.innerHTML = htmls.join('');   
+    },  
       defineProperties: function() {
         Object.defineProperty(this, 'currentSong', {
             get: function() {
@@ -354,8 +402,10 @@ const app = {
         // Lắng nghe hành vi khi click vào playlist
         playlist.onclick = function(e) {
           const songNode = e.target.closest('.song:not(.active)');
+          const songNodePro = e.target.closest('.song-pro:not(.active)');
+          const songProElement = $('.song-pro.active')
           const optionNode = e.target.closest('.option');
-          if(songNode || e.target.closest('.option')) {
+          if(songNode || optionNode) {
              //Xử lý khi click vào song
               if(songNode){
                 _this.currentIndex = Number(songNode.dataset.index);
@@ -364,6 +414,13 @@ const app = {
                 audio.play()
                 document.documentElement.scrollTop = 0
               }
+          }
+          if(songNodePro) {
+            _this.currentCode = songNodePro.dataset.index;
+            playlist.classList.contains('active')
+            songProElement ? songProElement.classList.remove('active') : ''
+            songNodePro.classList.add('active')
+            _this.loadCurrentSongPro()
           }
         }  
       },
@@ -381,6 +438,28 @@ const app = {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`
         audio.src = this.currentSong.path
+      },
+      loadCurrentSongPro: function() {
+        fetch(`https://music-services-1997.herokuapp.com/music/get?id=${this.currentCode}`)
+          .then(res => {
+            return res.json()
+          })
+          .then(data => {
+            if(data.data.err == 0) {
+              const result = data.data.data['128']
+              const song = listSongSearch.filter((data) => {
+                return data.encodeId == this.currentCode;
+              })
+              heading.textContent = song[0].title;
+              cdThumb.style.backgroundImage = `url('${song[0].thumbnailM}')`
+              audio.src = result;
+              audio.play()
+              document.documentElement.scrollTop = 0
+            }
+            else {
+              alert('Ban k the nghe bai nay..')
+            }
+          })
       },
       loadConfig: function() {
         this.isRandom = this.config.isRandom;
@@ -421,6 +500,9 @@ const app = {
 
         // Tải thông tin bài hát đầu tiên vào UI(userInterface) khi chạy ứng dụng
         this.loadCurrentSong(); 
+
+        // Lang nghe Dom Search
+        this.handleSearch();
 
         //  Render playlist
         this.render();
