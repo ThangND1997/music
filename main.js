@@ -19,6 +19,8 @@ const playlist = $('.playlist')
 const btnSearch = $('.btn-search i')
 const btnSearchInput = $('.btn-search input')
 
+// const btnUpload = $('.upload-music')
+
 const app = {
     currentIndex: 0,
     currentCode: 0,
@@ -212,33 +214,47 @@ const app = {
           image:
             "./assets/img/khabanh.jpg"
         }
-        
-      ],
-    handleSearch: () => {
-      btnSearchInput.onchange = (e) => {
-        nameSong = e.target.value;
-      }
-      btnSearch.onclick = () => {
-        if(btnSearchInput.style.width == 0) {
-          btnSearchInput.style.border = '1px solid #333';
-          btnSearchInput.style.width = '40%';
-        } else {
-          btnSearchInput.value = '';
-          fetch(`https://music-services-1997.herokuapp.com/music/search?name=${this.nameSong}`)
-            .then((res) => {
-              return res.json();
-            })
-            .then((data) => {
-              const result = data.results;
-              if(result) {
-                listSongSearch = result;
-                app.renderSearch(result);
-              }
-            })
+        ,
+        {
+          name: "Phonics Song",
+          singer: "ThangNguyen Mix",
+          path: "./assets/music/Phonics Song - Gracie_ s Corner.mp3",
+          image:
+            "./assets/img/phonics.jpeg"
         }
-      }
-
-    },  
+        ,
+        {
+          name: "EDM Nhac Tre 9x Remix 2012-2022",
+          singer: "Girl 9X",
+          path: "./assets/music/Top 20 Bản EDM 8X 9X ACV Remix Gây Nghiện Cực Mạnh LK Nhạc Trẻ Remix TikTok Hay Nhất Hiện Nay.mp3",
+          image:
+            "./assets/img/tiu.jpeg"
+        }
+    ],
+    // handleSearch: () => {
+    //   btnSearchInput.onchange = (e) => {
+    //     nameSong = e.target.value;
+    //   }
+    //   btnSearch.onclick = () => {
+    //     if(btnSearchInput.style.width == 0) {
+    //       btnSearchInput.style.border = '1px solid #333';
+    //       btnSearchInput.style.width = '40%';
+    //     } else {
+    //       btnSearchInput.value = '';
+    //       fetch(`https://music-services-1997.herokuapp.com/music/search?name=${this.nameSong}`)
+    //         .then((res) => {
+    //           return res.json();
+    //         })
+    //         .then((data) => {
+    //           const result = data.results;
+    //           if(result) {
+    //             listSongSearch = result;
+    //             app.renderSearch(result);
+    //           }
+    //         })
+    //     }
+    //   }
+    // },  
     setConfig: function (key, value){
       this.config[key] = value;
       localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config))
@@ -502,7 +518,7 @@ const app = {
         this.loadCurrentSong(); 
 
         // Lang nghe Dom Search
-        this.handleSearch();
+        // this.handleSearch();
 
         //  Render playlist
         this.render();

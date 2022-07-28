@@ -234,11 +234,13 @@ audio#audio {
 
   @media (max-width: 768px) {
     .dashboard{
-        background: url('http://cms.kienthuc.net.vn/zoomh/500/uploaded/hongnhat/2014_08_27/bautroi10ktt27_8_cmca.jpg');
+        /* background: url('http://cms.kienthuc.net.vn/zoomh/500/uploaded/hongnhat/2014_08_27/bautroi10ktt27_8_cmca.jpg'); */
       /* background: url('https://i.pinimg.com/originals/9d/c5/00/9dc5001af3de55831f204768eae7f1e3.jpg'); */
       background-repeat: no-repeat;
       background-size: cover;
       border-bottom: none;
+      background-color: #00bcd4;
+      border-radius: 10px;
     }
 
     body {
