@@ -230,6 +230,38 @@ const app = {
           image:
             "./assets/img/tiu.jpeg"
         }
+        ,
+        {
+          name: "Làm Gì Phải Hốt",
+          singer: "Thuỳ Linh if Đen Vâu",
+          path: "./assets/music/Lam-gi-phai-hot.mp3",
+          image:
+            "./assets/img/hoang-thuy-linh3-xwly-6235-1608459306.jpeg"
+        }
+        ,
+        {
+          name: "Để Mị Nói Cho Mà Nghe",
+          singer: "Hoàng Thuỳ Linh",
+          path: "./assets/music/de-mi-noi-cho-ma-nghe.mp3",
+          image:
+            "./assets/img/vi-sao-de-mi-noi-cho-ma-nghe-thanh-cong-chiem-linh-thi-truong-85a76441.jpeg"
+        }
+        ,
+        {
+          name: "Ánh Nắng Của Anh",
+          singer: "Phúc Hô",
+          path: "./assets/music/Ánh Nắng Của Anh (Chờ Em Đến Ngày Mai OST).mp3",
+          image:
+            "./assets/img/kingdom.jpg"
+        }
+        ,
+        {
+          name: "Quẩy tung nóc cùng Admin WIN",
+          singer: "Thắng Đẹp Trai",
+          path: "./assets/music/nonstop-2022-win.mp3",
+          image:
+            "./assets/img/win.jpeg"
+        }
     ],
     // handleSearch: () => {
     //   btnSearchInput.onchange = (e) => {
