@@ -226,7 +226,7 @@ const app = {
         {
           name: "EDM Nhac Tre 9x Remix 2012-2022",
           singer: "Girl 9X",
-          path: "./assets/music/Top 20 Bản EDM 8X 9X ACV Remix Gây Nghiện Cực Mạnh LK Nhạc Trẻ Remix TikTok Hay Nhất Hiện Nay.mp3",
+          path: "./assets/music/Top20NhacTre.mp3",
           image:
             "./assets/img/tiu.jpeg"
         }
