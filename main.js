@@ -262,6 +262,22 @@ const app = {
           image:
             "./assets/img/win.jpeg"
         }
+        ,
+        {
+          name: "Quẩy tung nóc cùng Admin WIN",
+          singer: "Thắng Đẹp Trai",
+          path: "./assets/music/nonstop-lanhleo.mp3",
+          image:
+            "./assets/img/win.jpeg"
+        }
+        ,
+        {
+          name: "Quẩy tung nóc cùng Admin WIN",
+          singer: "Thắng Đẹp Trai",
+          path: "./assets/music/nonstop-lanhgia.mp3",
+          image:
+            "./assets/img/win.jpeg"
+        }
     ],
     // handleSearch: () => {
     //   btnSearchInput.onchange = (e) => {
